@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "873031071452",
+    "firebase_url": "https://diploma-b3b2b.firebaseio.com",
+    "project_id": "diploma-b3b2b",
+    "storage_bucket": "diploma-b3b2b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:873031071452:android:7ba9b55c86667d7d",
+        "android_client_info": {
+          "package_name": "com.example.dante.diploma"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "873031071452-2m18lpmvbhiibdr0gshs6lmq95cr3suv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.dante.diploma",
+            "certificate_hash": "587a11ecf6b33018651f65a861a5a935e77212af"
+          }
+        },
+        {
+          "client_id": "873031071452-ssvj32r6dfcj8olv1il3tl7mr30qdsvu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAH6wQBYs5xhwwng1zgm-Djq2Oj4XkBPpU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "873031071452-ssvj32r6dfcj8olv1il3tl7mr30qdsvu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
