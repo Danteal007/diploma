@@ -8,17 +8,17 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Comment implements Serializable {
-    private UserInfo user;
+    private String user;
     private String message;
     private ArrayList<Comment> replyes;
 
-    public Comment(UserInfo user, String message){
+    public Comment(String user, String message){
         this.user = user;
         this.message = message;
         replyes = new ArrayList<>();
     }
 
-    public UserInfo getUser() {
+    public String getUser() {
         return user;
     }
 
@@ -34,7 +34,7 @@ public class Comment implements Serializable {
         replyes.add(comment);
     }
 
-    public void setUser(UserInfo user) {
+    public void setUser(String user) {
         this.user = user;
     }
 

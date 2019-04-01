@@ -10,6 +10,7 @@ public class Course implements Serializable {
 
     public Course(String name){
         this.name = name;
+        topics = new ArrayList<>();
     }
 
 

@@ -9,8 +9,6 @@ public class Step implements Serializable {
     private String text;
 
     private ArrayList<Comment> comments;
-    private int likes;  // Вместо числа потом поставить список пользователей которые поставили лайк, клол-во лайков = кол-во лайкнувших пользователей
-    private int dislikes;
 
     public Step(){
 
@@ -20,9 +18,6 @@ public class Step implements Serializable {
         this.text = text;
 
         comments = new ArrayList<Comment>();
-
-        likes = 0;
-        dislikes = 0;
     }
 
     public String getText() {
@@ -33,14 +28,6 @@ public class Step implements Serializable {
         return comments;
     }
 
-    public int getLikes() {
-        return likes;
-    }
-
-    public int getDislikes() {
-        return dislikes;
-    }
-
     public void setText(String text) {
         this.text = text;
     }
@@ -49,11 +36,7 @@ public class Step implements Serializable {
         this.comments = comments;
     }
 
-    public void setLikes(int likes) {
-        this.likes = likes;
-    }
-
-    public void setDislikes(int dislikes) {
-        this.dislikes = dislikes;
+    public void addComment(Comment comment){
+        comments.add(comment);
     }
 }
