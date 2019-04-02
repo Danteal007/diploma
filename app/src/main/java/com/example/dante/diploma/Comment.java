@@ -12,6 +12,10 @@ public class Comment implements Serializable {
     private String message;
     private ArrayList<Comment> replyes;
 
+    public Comment(){
+
+    }
+
     public Comment(String user, String message){
         this.user = user;
         this.message = message;

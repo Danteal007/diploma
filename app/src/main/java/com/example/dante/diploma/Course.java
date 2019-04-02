@@ -8,6 +8,10 @@ public class Course implements Serializable {
     private String name;
     private ArrayList<Topic> topics;
 
+    public Course(){
+
+    }
+
     public Course(String name){
         this.name = name;
         topics = new ArrayList<>();

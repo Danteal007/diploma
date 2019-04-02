@@ -11,6 +11,10 @@ public class Topic implements Serializable {
     private String name;
     private ArrayList<Step> steps;
 
+    public Topic(){
+
+    }
+
     public Topic(double number, String name){
         this.number = number;
         this.name = name;

@@ -1,18 +1,16 @@
 package com.example.dante.diploma;
 
+import android.os.Debug;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.LinearLayout;
+import android.util.Log;
 
-import com.example.dante.diploma.Step.Quiz.QuizItem;
-import com.example.dante.diploma.Step.Quiz.QuizStep;
-import com.example.dante.diploma.Step.Step;
+import com.example.dante.diploma.Adapters.CourseAdapter;
 import com.example.dante.diploma.UserInfo.UserInfo;
-import com.example.dante.diploma.UserInfo.UserStepInfoItem;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -26,35 +24,42 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
+    private final String TAG = "Main Activity";
+
     private FirebaseAuth mAuth;
 
     private FirebaseDatabase database;
-    private DatabaseReference myref;
+    private DatabaseReference courseRef;
 
     private ArrayList<Course> courses;
 
     private RecyclerView recyclerView;
+    private CourseAdapter courseAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        InitRecyclerView();
+
         database = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
-        myref = database.getReference();
+        courseRef = database.getReference("Courses");
 
         UserInfo userInfo1 = new UserInfo("danteal65");
 
-        courses = new ArrayList<>();
+        courses = new ArrayList<Course>();
 
-        Query myQuery = myref;
+        Query myQuery = courseRef;
 
         myQuery.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Course course = dataSnapshot.getValue(Course.class);
-                courses.add(course);
+                Course course =  dataSnapshot.getValue(Course.class);
+                if(course != null) {
+                    courseAdapter.AddCourse(course);
+                }
             }
 
             @Override
@@ -78,7 +83,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        InitRecyclerView();
+        Log.d(TAG, "onCreate: " + courseAdapter.getItemCount());
+
     }
 
     @Override
@@ -91,5 +97,8 @@ public class MainActivity extends AppCompatActivity {
     private void InitRecyclerView(){
         recyclerView = findViewById(R.id.rv_Content);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        courseAdapter = new CourseAdapter();
+        recyclerView.setAdapter(courseAdapter);
+
     }
 }
