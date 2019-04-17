@@ -1,5 +1,7 @@
 package com.example.dante.diploma;
 
+import com.google.firebase.database.IgnoreExtraProperties;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
