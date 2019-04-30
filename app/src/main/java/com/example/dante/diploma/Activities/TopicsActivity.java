@@ -47,51 +47,19 @@ public class TopicsActivity extends AppCompatActivity {
         final int coursePos = intent.getIntExtra("CoursePos", 0);
         courseArrayList = new ArrayList<>();
 
+
         InitRecyclerView();
 
-        database = FirebaseDatabase.getInstance();
-        courseRef = database.getReference();
-        Query myQuery = courseRef;
-        myQuery.addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Course course =  dataSnapshot.child(Integer.toString(coursePos)).getValue(Course.class);
-                if(course != null) {
-                    courseArrayList.add(course);
-                    topicAdapter.setTopics(course.getTopics());
-                }
+        Course course = (Course)intent.getSerializableExtra("Course");
+        topicAdapter.setTopics(course.getTopics());
+        Log.d(TAG, "onCreate:" + course.getTopics().
+                get(0).
+                getSteps().
+                get(0).
+                getText().
+                get(0).
+                text);
 
-
-
-
-
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
-        Log.d(TAG, Integer.toString(coursePos));
-        if(courseArrayList.size() > coursePos){
-            topicAdapter.setTopics(courseArrayList.get(coursePos).getTopics());
-        }
     }
 
     private void InitRecyclerView(){
@@ -102,7 +70,7 @@ public class TopicsActivity extends AppCompatActivity {
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rvTopics.setLayoutManager(linearLayoutManager);
         //rvCourses.setHasFixedSize(true);
-        topicAdapter = new TopicAdapter();
+        topicAdapter = new TopicAdapter(this);
         rvTopics.setAdapter(topicAdapter);
 
     }

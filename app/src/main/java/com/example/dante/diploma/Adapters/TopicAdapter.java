@@ -1,11 +1,15 @@
 package com.example.dante.diploma.Adapters;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.dante.diploma.Activities.StepsActivity;
 import com.example.dante.diploma.R;
 import com.example.dante.diploma.Topic;
 
@@ -15,7 +19,12 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
 
     private ArrayList<Topic> topicArrayList;
 
-    public TopicAdapter(){
+    private Context context;
+    private Intent stepsActivityIntent;
+
+    public TopicAdapter(Context context){
+        this.context = context;
+        stepsActivityIntent = new Intent(context, StepsActivity.class);
         topicArrayList = new ArrayList<>();
     }
 
@@ -44,8 +53,16 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
     }
 
     @Override
-    public void onBindViewHolder(TopicViewHolder holder, int position) {
+    public void onBindViewHolder(TopicViewHolder holder, final int position) {
         holder.bind(topicArrayList.get(position));
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                stepsActivityIntent.putExtra("Topic", topicArrayList.get(position));
+                context.startActivity(stepsActivityIntent);
+            }
+        });
     }
 
     @Override
@@ -55,15 +72,18 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
 
     static class TopicViewHolder extends RecyclerView.ViewHolder{
 
-        private TextView tvTopicName;
+        private TextView tv_TopicName;
+        private TextView tv_TopicNumber;
 
         public TopicViewHolder(View itemView) {
             super(itemView);
-            tvTopicName = itemView.findViewById(R.id.tv_topic_name);
+            tv_TopicName = itemView.findViewById(R.id.tv_topic_name);
+            tv_TopicNumber = itemView.findViewById(R.id.tv_topic_number);
         }
 
         public void bind(Topic topic){
-            tvTopicName.setText(topic.getName());
+            tv_TopicName.setText(topic.getName());
+            tv_TopicNumber.setText(String.valueOf(topic.getTopicNumber()));
         }
     }
 }

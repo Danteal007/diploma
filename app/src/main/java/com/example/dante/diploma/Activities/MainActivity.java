@@ -20,7 +20,9 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -47,13 +49,13 @@ public class MainActivity extends AppCompatActivity {
 
         database = FirebaseDatabase.getInstance();
         mAuth = FirebaseAuth.getInstance();
-        courseRef = database.getReference("Courses");
+        //courseRef = database.getReference("Courses");
 
         UserInfo userInfo1 = new UserInfo("danteal65");
 
         courses = new ArrayList<>();
 
-        Query myQuery = courseRef;
+        /*Query myQuery = courseRef;
 
         myQuery.addChildEventListener(new ChildEventListener() {
             @Override
@@ -77,6 +79,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });*/
+
+        FirebaseDatabase.getInstance().getReference().child("Courses").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                GenericTypeIndicator<ArrayList<Course>> t = new GenericTypeIndicator<ArrayList<Course>>() {};
+                courses = dataSnapshot.getValue(t);
+                courseAdapter.setCourses(courses);
             }
 
             @Override

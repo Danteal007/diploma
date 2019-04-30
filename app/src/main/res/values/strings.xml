@@ -4,4 +4,11 @@
     <string name="_1_8">Шаг 1/8</string>
     <string name="right"><![CDATA[=>>]]></string>
     <string name="course_name">Название курса</string>
+    <string name="avaliable_courses">Доступные обучающие программы</string>
+    <string name="topics_list">Список тем</string>
+    <string name="contiue_course">Продолжить курс</string>
+    <string name="number">number</string>
+    <string name="topic_name">topic_name</string>
+    <string name="sign_in">Вход</string>
+    <string name="sign_up">Регистрация</string>
 </resources>

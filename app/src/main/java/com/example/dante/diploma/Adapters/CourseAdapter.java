@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.dante.diploma.Activities.MainActivity;
 import com.example.dante.diploma.Course;
 import com.example.dante.diploma.R;
 import com.example.dante.diploma.Activities.TopicsActivity;
@@ -22,24 +23,22 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
     private ArrayList<Course> courses;
 
     private Context context;
-
-    Intent topicActivityIntent;
+    private Intent topicActivityIntent;
 
     public CourseAdapter(Context context){
+        this.context = context;
         Log.d(TAG, "CourseAdapter: Adapter Created");
         courses = new ArrayList<>();
-        this.context = context;
+
         topicActivityIntent = new Intent(context, TopicsActivity.class);
     }
 
     public void setCourses(ArrayList<Course> courses){
         this.courses.addAll(courses);
         notifyDataSetChanged();
-        //Log.d(TAG, "setCourses: " + this.courses.get(0).getName());
     }
 
     public void addCourse(Course course){
-        //Log.d(TAG, "addCourse: " + course.getName());
         this.courses.add(course);
         notifyDataSetChanged();
     }
@@ -66,7 +65,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                topicActivityIntent.putExtra("CoursePos",position);
+                topicActivityIntent.putExtra("Course", courses.get(position));
                 context.startActivity(topicActivityIntent);
             }
         });
