@@ -61,6 +61,12 @@ public class EmailPasswordActivity extends AppCompatActivity implements View.OnC
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
+
+    @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btn_sign_in:
@@ -77,12 +83,18 @@ public class EmailPasswordActivity extends AppCompatActivity implements View.OnC
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
+                    Intent intent = new Intent(EmailPasswordActivity.this, MainActivity.class);
+                    startActivity(intent);
+
                     Toast.makeText(EmailPasswordActivity.this, "Авторизация прошла успешно", Toast.LENGTH_LONG).show();
                 }else{
                     Toast.makeText(EmailPasswordActivity.this, "Ошибка авторизации", Toast.LENGTH_LONG).show();
                 }
             }
         });
+
+
+
     }
 
     public void SignUp(String email, String password){
