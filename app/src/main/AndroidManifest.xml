@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EmailPasswordActivity">
+        <activity android:name=".Activities.SignUpActivity"></activity>
+        <activity android:name=".Activities.SettingsActivity" />
+        <activity android:name=".Activities.EmailPasswordActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,8 +20,7 @@
         </activity>
         <activity android:name=".Activities.StepsActivity" />
         <activity android:name=".Activities.TopicsActivity" />
-        <activity android:name=".Activities.MainActivity">
-        </activity>
+        <activity android:name=".Activities.MainActivity" />
     </application>
 
 </manifest>

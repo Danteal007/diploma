@@ -1,9 +1,5 @@
 package com.example.dante.diploma;
 
-import android.icu.lang.UScript;
-
-import com.example.dante.diploma.UserInfo.UserInfo;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 
