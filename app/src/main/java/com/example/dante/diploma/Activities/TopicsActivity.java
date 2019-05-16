@@ -52,13 +52,6 @@ public class TopicsActivity extends AppCompatActivity {
 
         Course course = (Course)intent.getSerializableExtra("Course");
         topicAdapter.setTopics(course.getTopics());
-        Log.d(TAG, "onCreate:" + course.getTopics().
-                get(0).
-                getSteps().
-                get(0).
-                getText().
-                get(0).
-                text);
 
     }
 

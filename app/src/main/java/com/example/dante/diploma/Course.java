@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 public class Course implements Serializable {
 
+    private int coursePos;
     private String name;
     private ArrayList<Topic> topics;
 
@@ -38,5 +39,13 @@ public class Course implements Serializable {
 
     public void setTopics(ArrayList<Topic> topics) {
         this.topics = topics;
+    }
+
+    public int getCoursePos() {
+        return coursePos;
+    }
+
+    public void setCoursePos(int coursePos) {
+        this.coursePos = coursePos;
     }
 }

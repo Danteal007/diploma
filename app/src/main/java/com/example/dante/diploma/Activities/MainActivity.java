@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        InitRecyclerView();
+
         btnSettings = findViewById(R.id.btn_settings);
         btnSignOut = findViewById(R.id.btn_log_out);
 
@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         FirebaseDatabase.getInstance().getReference("Courses").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                InitRecyclerView();
                 GenericTypeIndicator<ArrayList<Course>> t = new GenericTypeIndicator<ArrayList<Course>>() {};
                 courses = dataSnapshot.getValue(t);
                 courseAdapter.setCourses(courses);
@@ -73,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        Log.d(TAG, "onCreate: " + courseAdapter.getItemCount());
+        //Log.d(TAG, "onCreate: " + courseAdapter.getItemCount());
 
     }
 

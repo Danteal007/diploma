@@ -12,10 +12,10 @@
 #   public *;
 #}
 
-# Uncomment this to preserve the line topicNumber information for
+# Uncomment this to preserve the line topicPos information for
 # debugging stack traces.
 #-keepattributes SourceFile,LineNumberTable
 
-# If you keep the line topicNumber information, uncomment this to
+# If you keep the line topicPos information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile

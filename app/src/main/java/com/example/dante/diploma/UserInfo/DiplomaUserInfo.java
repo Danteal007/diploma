@@ -6,8 +6,10 @@ import java.util.ArrayList;
 public class DiplomaUserInfo implements Serializable {
     private String name;
     private String lastName;
+    private ArrayList<CourseUserInfo> courseUserInfos;
 
     public DiplomaUserInfo(){
+        courseUserInfos = new ArrayList<CourseUserInfo>();
 
     }
 
@@ -31,5 +33,13 @@ public class DiplomaUserInfo implements Serializable {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public ArrayList<CourseUserInfo> getCourseUserInfos() {
+        return courseUserInfos;
+    }
+
+    public void setCourseUserInfos(ArrayList<CourseUserInfo> courseUserInfos) {
+        this.courseUserInfos = courseUserInfos;
     }
 }

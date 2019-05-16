@@ -23,4 +23,9 @@
     <string name="last_name">Фамилия</string>
     <string name="finish_sign_up">Завершить регистрацию</string>
     <string name="logout">Выйти</string>
+    <string name="title_activity_user_step_results">UserStepResultsActivity</string>
+    <string name="show_results">Показать результаты</string>
+    <string name="topic_number">topic number</string>
+    <string name="step_1">Шаг 1</string>
+    <string name="correct">correct</string>
 </resources>
