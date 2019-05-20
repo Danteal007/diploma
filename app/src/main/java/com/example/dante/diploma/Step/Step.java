@@ -18,8 +18,6 @@ public class Step implements Serializable {
     private String sampleOutput;
     private ArrayList<QuizItem> quizItems;
 
-    private ArrayList<Comment> comments;
-
     public Step(){
 
     }
@@ -36,20 +34,8 @@ public class Step implements Serializable {
         return text;
     }
 
-    public ArrayList<Comment> getComments() {
-        return comments;
-    }
-
     public void setText(ArrayList<Article> articles) {
         this.text = articles;
-    }
-
-    public void setComments(ArrayList<Comment> comments) {
-        this.comments = comments;
-    }
-
-    public void addComment(Comment comment){
-        comments.add(comment);
     }
 
     public String getCodeBlank() {

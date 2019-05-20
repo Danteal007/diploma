@@ -1,11 +1,17 @@
 package com.example.dante.diploma;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -76,6 +82,10 @@ public class StepPageFragment extends Fragment {
 
     DiplomaUserInfo diplomaUserInfo;
 
+    LinearLayout linearLayout;
+    Button btn_checkAnswer;
+    ViewPager vp;
+
     public static  StepPageFragment newInstance(int page, Step step) throws NullPointerException {
         StepPageFragment stepPageFragment = new StepPageFragment();
         Bundle arguments = new Bundle();
@@ -125,10 +135,13 @@ public class StepPageFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
+    public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.step_page, null);
-        LinearLayout linearLayout = view.findViewById(R.id.ll_step_content);
-        Button btn_checkAnswer = new Button(this.getContext());
+        linearLayout = view.findViewById(R.id.ll_step_content);
+        btn_checkAnswer = new Button(this.getContext());
+        btn_checkAnswer.setText("Проверить");
+
+        vp = (ViewPager)container;
 
         firebaseDatabase.
                 getReference("Users").addValueEventListener(new ValueEventListener() {
@@ -149,7 +162,22 @@ public class StepPageFragment extends Fragment {
                 TextView tvStepPage = new TextView(this.getContext());
                 tvStepPage.setText(article.text);
                 tvStepPage.setTextSize(article.textSize);
-                tvStepPage.setWidth(article.textStyle);
+                tvStepPage.setTextColor(Color.BLACK);
+                tvStepPage.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                int style = article.textStyle;
+                switch (style){
+                    case 0-3:
+                        tvStepPage.setPadding(20,20,20,20);
+                        tvStepPage.setTypeface(Typeface.defaultFromStyle(style));
+                        break;
+                    case 4:
+                        tvStepPage.setTypeface(Typeface.MONOSPACE);
+                        tvStepPage.setBackgroundColor(Color.LTGRAY);
+                        break;
+                    case 5:
+                        tvStepPage.setTypeface(Typeface.SANS_SERIF);
+                        break;
+                }
                 linearLayout.addView(tvStepPage);
             }
 
@@ -200,6 +228,15 @@ public class StepPageFragment extends Fragment {
                             if(checkedRadioButtonNumber == finalCorrectAnswerIndex){
                                 //Сюда добавить логику зачета пользователю правильного ответа
                                 CountCorrectAnswer(coursePos,topicPos,stepPos);
+                                final Handler handler = new Handler();
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        // Do something after 5s = 5000ms
+                                        vp.setCurrentItem(stepPos+1);
+                                    }
+                                }, 2000);
+
                             }
                         }
                     });
@@ -308,6 +345,11 @@ public class StepPageFragment extends Fragment {
 
     public void CountCorrectAnswer(int coursePos, int topicPos, int stepPos){
         Log.d("", "onClick: Correct");
+
+        btn_checkAnswer.setText("Верно!!!");
+        btn_checkAnswer.setBackgroundColor(Color.GREEN);
+        btn_checkAnswer.setTextColor(Color.WHITE);
+
 
         currentUserRef.
                 child("courseUserInfos").child(Integer.toString(coursePos)).

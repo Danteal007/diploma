@@ -82,7 +82,7 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
 
         public void bind(Topic topic){
             tv_TopicName.setText(topic.getName());
-            tv_TopicNumber.setText(String.valueOf(topic.getTopicPos()));
+            tv_TopicNumber.setText("Тема №" + String.valueOf(topic.getTopicPos()));
         }
     }
 }

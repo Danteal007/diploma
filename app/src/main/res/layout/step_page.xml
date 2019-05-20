@@ -2,7 +2,8 @@
 
 <ScrollView
     android:id="@+id/sv_step_page"
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
     <LinearLayout
         android:id="@+id/ll_step_content"

@@ -47,7 +47,7 @@ public class StepResultsAdapter extends RecyclerView.Adapter<StepResultsAdapter.
 
     @Override
     public void onBindViewHolder(StepResultsAdapter.StepResultViewHolder holder, int position) {
-        holder.bind(stepUserInfos.get(position));
+        holder.bind(position);
     }
 
     @Override
@@ -66,14 +66,19 @@ public class StepResultsAdapter extends RecyclerView.Adapter<StepResultsAdapter.
             tvStepResult = itemView.findViewById(R.id.tv_step_result);
         }
 
-        public void bind(StepUserInfo stepUserInfo){
-            if(stepUserInfo != null) {
-                Log.d(TAG, "bind: stepNumber -  "+ stepUserInfo.getStepNumber() + ", correct " + stepUserInfo.getCorrect());
-                String stepNumber = Integer.toString(stepUserInfo.getStepNumber());
-                String stepResult = Boolean.toString(stepUserInfo.getCorrect());
-                tvStepResultNumber.setText(stepNumber);
-                tvStepResult.setText(stepResult);
+        public void bind(int holderPosition){
+            String stepNumber = "Шаг №" + Integer.toString(holderPosition+1);
+            String stepResult = " - Не пройден";
+
+            if(stepUserInfos.get(holderPosition) != null) {
+                Log.d(TAG, "stepUserInfos.get(holderPosition) != null");
+                Log.d(TAG, "bind: stepNumber -  "+ stepUserInfos.get(holderPosition).getStepNumber() + ", correct " + stepUserInfos.get(holderPosition).getCorrect());
+
+                stepResult = stepUserInfos.get(holderPosition).getCorrect() ? " - Пройден" : " - Не пройден";
             }
+            tvStepResultNumber.setText(stepNumber);
+            tvStepResult.setText(stepResult);
+
         }
     }
 }

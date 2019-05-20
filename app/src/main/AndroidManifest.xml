@@ -13,20 +13,33 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".Activities.UserStepResultsActivity"
-            android:label="@string/title_activity_user_step_results"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".Activities.SignUpActivity" />
-        <activity android:name=".Activities.SettingsActivity" />
-        <activity android:name=".Activities.EmailPasswordActivity">
+            android:label="Итоги курса" />
+        <activity
+            android:name=".Activities.SignUpActivity"
+            android:label="Регистрация"/>
+        <activity
+            android:name=".Activities.SettingsActivity"
+            android:label="Настойки"/>
+        <activity
+            android:name=".Activities.EmailPasswordActivity"
+            android:label="Вход в аккаунт">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action
+                    android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category
+                    android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.StepsActivity" />
-        <activity android:name=".Activities.TopicsActivity" />
-        <activity android:name=".Activities.MainActivity" />
+        <activity
+            android:name=".Activities.StepsActivity"
+            android:label="Шаги"/>
+        <activity
+            android:name=".Activities.TopicsActivity"
+            android:label="Темы курса"/>
+        <activity
+            android:name=".Activities.MainActivity"
+            android:label="Доступные курсы"/>
     </application>
 
 </manifest>
