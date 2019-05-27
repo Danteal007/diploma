@@ -1,6 +1,5 @@
 package com.example.dante.diploma.Step;
 
-import com.example.dante.diploma.Comment;
 import com.example.dante.diploma.Step.Quiz.QuizItem;
 import com.example.dante.diploma.StepType;
 import com.example.dante.diploma.ViewHolders.Article;

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.dante.diploma.Activities.MainActivity;
 import com.example.dante.diploma.Activities.UserStepResultsActivity;
@@ -89,22 +90,29 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
             }
         });
 
+
+
         holder.btnShowCourseResults.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        DiplomaUserInfo diplomaUserInfo = dataSnapshot.getValue(DiplomaUserInfo.class);
-                        Log.d(TAG, diplomaUserInfo.getName() + " " + holder.getAdapterPosition());
-                        courseUserInfo = diplomaUserInfo.getCourseUserInfos().get(holder.getAdapterPosition());
-                    }
+                try{
+                    FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            DiplomaUserInfo diplomaUserInfo = dataSnapshot.getValue(DiplomaUserInfo.class);
+                            Log.d(TAG, diplomaUserInfo.getName() + " " + holder.getAdapterPosition());
+                            courseUserInfo = diplomaUserInfo.getCourseUserInfos().get(holder.getAdapterPosition());
+                        }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                    }
-                });
+                        }
+                    });
+                }catch (IndexOutOfBoundsException ex){
+                    Toast.makeText(holder.itemView.getContext(),"Нет информации о результатах", Toast.LENGTH_LONG).show();
+                }
+
                 Intent intent = new Intent(view.getContext(), UserStepResultsActivity.class);
                 intent.putExtra("CourseUserInfo",courseUserInfo);
                 view.getContext().startActivity(intent);
@@ -124,7 +132,6 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
         private final String TAG = "CourseViewHolder";
 
         private TextView tvCourseName;
-        private Button btnContinueCourse;
         private Button btnShowCourseResults;
 
         public CourseViewHolder(View itemView) {
@@ -133,15 +140,13 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
             Log.d(TAG, "CourseViewHolder: constructor working");
 
             tvCourseName = itemView.findViewById(R.id.tv_course_name);
-            btnContinueCourse = itemView.findViewById(R.id.btn_continue_course);
             btnShowCourseResults = itemView.findViewById(R.id.btn_show_course_results);
-
 
         }
 
         public void bind(Course course){
             tvCourseName.setText(course.getName());
-            tvCourseName.setVisibility(View.VISIBLE);
+            //tvCourseName.setVisibility(View.VISIBLE);
 
         }
 

@@ -11,8 +11,8 @@
     <string name="topic_name">topic_name</string>
     <string name="sign_in">Вход</string>
     <string name="sign_up">Регистрация</string>
-    <string name="settings">Настройки</string>
-    <string name="account">Аккаунт</string>
+    <string name="settings">Аккаунт</string>
+    <string name="account">Информация об аккаунте</string>
     <string name="username">Имя пользователя : </string>
     <string name="email">Email : </string>
     <string name="sign_up_a_new_user">Регистрация нового пользователя</string>

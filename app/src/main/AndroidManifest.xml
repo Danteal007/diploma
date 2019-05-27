@@ -19,7 +19,7 @@
             android:label="Регистрация"/>
         <activity
             android:name=".Activities.SettingsActivity"
-            android:label="Настойки"/>
+            android:label="Информация об аккаунте"/>
         <activity
             android:name=".Activities.EmailPasswordActivity"
             android:label="Вход в аккаунт">

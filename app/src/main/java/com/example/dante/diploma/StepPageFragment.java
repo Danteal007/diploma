@@ -139,7 +139,7 @@ public class StepPageFragment extends Fragment {
         View view = inflater.inflate(R.layout.step_page, null);
         linearLayout = view.findViewById(R.id.ll_step_content);
         btn_checkAnswer = new Button(this.getContext());
-        btn_checkAnswer.setText("Проверить");
+
 
         vp = (ViewPager)container;
 
@@ -163,7 +163,9 @@ public class StepPageFragment extends Fragment {
                 tvStepPage.setText(article.text);
                 tvStepPage.setTextSize(article.textSize);
                 tvStepPage.setTextColor(Color.BLACK);
-                tvStepPage.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+                tvStepPage.setLayoutParams(
+                        new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                                ViewGroup.LayoutParams.WRAP_CONTENT));
                 int style = article.textStyle;
                 switch (style){
                     case 0-3:
@@ -180,6 +182,13 @@ public class StepPageFragment extends Fragment {
                 }
                 linearLayout.addView(tvStepPage);
             }
+            btn_checkAnswer.setText("Следующий шаг");
+            btn_checkAnswer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    CountCorrectAnswer(coursePos,topicPos,stepPos);
+                }
+            });
 
         }
         switch (stepType){
@@ -217,9 +226,10 @@ public class StepPageFragment extends Fragment {
                     }
 
                     linearLayout.addView(rg_quiz);
-                    linearLayout.addView(btn_checkAnswer);
 
                     final int finalCorrectAnswerIndex = correctAnswerIndex;
+
+                    btn_checkAnswer.setText("Проверить");
 
                     btn_checkAnswer.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -228,15 +238,11 @@ public class StepPageFragment extends Fragment {
                             if(checkedRadioButtonNumber == finalCorrectAnswerIndex){
                                 //Сюда добавить логику зачета пользователю правильного ответа
                                 CountCorrectAnswer(coursePos,topicPos,stepPos);
-                                final Handler handler = new Handler();
-                                handler.postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        // Do something after 5s = 5000ms
-                                        vp.setCurrentItem(stepPos+1);
-                                    }
-                                }, 2000);
 
+
+                            }
+                            else {
+                                NotifyAnswerIsNotCorrect();
                             }
                         }
                     });
@@ -246,7 +252,10 @@ public class StepPageFragment extends Fragment {
                 if(codeBlank!= null){
                     final EditText etCodeBlank = new EditText(this.getContext());
                     etCodeBlank.setText(codeBlank);
+                    etCodeBlank.setTypeface(Typeface.MONOSPACE);
                     linearLayout.addView(etCodeBlank);
+
+                    btn_checkAnswer.setText("Проверить");
                     btn_checkAnswer.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -259,6 +268,9 @@ public class StepPageFragment extends Fragment {
                                 if(output.contains(sampleOutput)){
                                     CountCorrectAnswer(coursePos, topicPos, stepPos);
                                 }
+                                else {
+                                    NotifyAnswerIsNotCorrect();
+                                }
                             }catch (Exception ex){
 
                             }
@@ -267,14 +279,69 @@ public class StepPageFragment extends Fragment {
                         }
                     });
 
-                    linearLayout.addView(btn_checkAnswer);
                 }
                 break;
         }
-        //tvStepPage.setText(stepText);//Настроить форматирование текста, можно это сделать здесь
 
+        linearLayout.addView(btn_checkAnswer);
 
         return view;
+    }
+
+    private void NotifyAnswerIsNotCorrect() {
+        btn_checkAnswer.setText("Неверно! Попробовать снова.");
+        btn_checkAnswer.setBackgroundColor(Color.RED);
+    }
+
+
+    public String ModifyScript(String script){
+        String result = script.replace(System.getProperty("line.separator"),"");
+        result = result.replace("\"","\\\"");
+        return result;
+    }
+
+    public void CountCorrectAnswer(int coursePos, int topicPos, final int stepPos){
+        Log.d("", "onClick: Correct");
+
+        btn_checkAnswer.setText("Верно!!!");
+        btn_checkAnswer.setBackgroundColor(Color.GREEN);
+        btn_checkAnswer.setTextColor(Color.WHITE);
+
+        try {
+
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    // Do something after 5s = 5000ms
+                    vp.setCurrentItem(stepPos + 1);
+                }
+            }, 2000);
+        }catch (IndexOutOfBoundsException ex){
+            ex.printStackTrace();
+        }
+
+        currentUserRef.
+                child("courseUserInfos").child(Integer.toString(coursePos)).
+                child("topicUserInfos").child(Integer.toString(topicPos)).
+                child("stepUserInfos").child(Integer.toString(stepPos)).
+                child("correct").setValue(true);
+
+        currentUserRef.
+                child("courseUserInfos").child(Integer.toString(coursePos)).
+                child("topicUserInfos").child(Integer.toString(topicPos)).
+                child("stepUserInfos").child(Integer.toString(stepPos)).
+                child("stepNumber").setValue(stepPos);
+
+        currentUserRef.
+                child("courseUserInfos").child(Integer.toString(coursePos)).
+                child("topicUserInfos").child(Integer.toString(topicPos)).
+                child("topicNumber").setValue(topicPos);
+        Log.d("", "onClick " + topicPos);
+
+        currentUserRef.
+                child("courseUserInfos").child(Integer.toString(coursePos)).
+                child("courseNumber").setValue(coursePos);
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -335,42 +402,5 @@ public class StepPageFragment extends Fragment {
         protected void onPreExecute() {
             super.onPreExecute();
         }
-    }
-
-    public String ModifyScript(String script){
-        String result = script.replace(System.getProperty("line.separator"),"");
-        result = result.replace("\"","\\\"");
-        return result;
-    }
-
-    public void CountCorrectAnswer(int coursePos, int topicPos, int stepPos){
-        Log.d("", "onClick: Correct");
-
-        btn_checkAnswer.setText("Верно!!!");
-        btn_checkAnswer.setBackgroundColor(Color.GREEN);
-        btn_checkAnswer.setTextColor(Color.WHITE);
-
-
-        currentUserRef.
-                child("courseUserInfos").child(Integer.toString(coursePos)).
-                child("topicUserInfos").child(Integer.toString(topicPos)).
-                child("stepUserInfos").child(Integer.toString(stepPos)).
-                child("correct").setValue(true);
-
-        currentUserRef.
-                child("courseUserInfos").child(Integer.toString(coursePos)).
-                child("topicUserInfos").child(Integer.toString(topicPos)).
-                child("stepUserInfos").child(Integer.toString(stepPos)).
-                child("stepNumber").setValue(stepPos);
-
-        currentUserRef.
-                child("courseUserInfos").child(Integer.toString(coursePos)).
-                child("topicUserInfos").child(Integer.toString(topicPos)).
-                child("topicNumber").setValue(topicPos);
-        Log.d("", "onClick " + topicPos);
-
-        currentUserRef.
-                child("courseUserInfos").child(Integer.toString(coursePos)).
-                child("courseNumber").setValue(coursePos);
     }
 }

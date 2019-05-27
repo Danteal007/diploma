@@ -84,20 +84,21 @@ public class EmailPasswordActivity extends AppCompatActivity implements View.OnC
     }
 
     public void SignIn(String email, String password){
-        mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if(task.isSuccessful()){
-                    Intent intent = new Intent(EmailPasswordActivity.this, MainActivity.class);
-                    startActivity(intent);
+        try {
+            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        Intent intent = new Intent(EmailPasswordActivity.this, MainActivity.class);
+                        startActivity(intent);
 
-                    Toast.makeText(EmailPasswordActivity.this, "Авторизация прошла успешно", Toast.LENGTH_LONG).show();
-                }else{
-                    Toast.makeText(EmailPasswordActivity.this, "Ошибка авторизации", Toast.LENGTH_LONG).show();
+                        Toast.makeText(EmailPasswordActivity.this, "Авторизация прошла успешно", Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(EmailPasswordActivity.this, "Ошибка авторизации", Toast.LENGTH_LONG).show();
+                    }
                 }
-            }
-        });
-
+            });
+        }catch (Exception ex){}
 
 
     }

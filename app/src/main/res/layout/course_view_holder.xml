@@ -18,32 +18,11 @@
         android:text="@string/course_name"
         android:textSize="20sp" />
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        app:srcCompat="@drawable/common_google_signin_btn_text_light" />
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/btn_show_course_results"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btn_show_course_results"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:text="@string/show_results"
-            tools:ignore="RtlHardcoded" />
-
-        <Button
-            android:id="@+id/btn_continue_course"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:text="@string/contiue_course"
-            tools:ignore="RtlHardcoded" />
-    </LinearLayout>
+        android:layout_gravity="right"
+        android:text="@string/show_results" />
 
 </LinearLayout>
