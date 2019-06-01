@@ -1,4 +1,4 @@
-package com.example.dante.diploma;
+package com.example.dante.diploma.Step;
 
 import java.io.Serializable;
 

@@ -38,7 +38,7 @@
             android:name=".Activities.TopicsActivity"
             android:label="Темы курса"/>
         <activity
-            android:name=".Activities.MainActivity"
+            android:name=".Activities.CoursesActivity"
             android:label="Доступные курсы"/>
     </application>
 

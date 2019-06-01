@@ -1,10 +1,7 @@
 package com.example.dante.diploma.UserInfo;
 
-import com.example.dante.diploma.Topic;
-
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 public class TopicUserInfo implements Serializable {
 

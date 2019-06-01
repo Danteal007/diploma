@@ -15,13 +15,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class EmailPasswordActivity extends AppCompatActivity implements View.OnClickListener{
-
-    private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference usersRef;
 
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
@@ -36,23 +31,12 @@ public class EmailPasswordActivity extends AppCompatActivity implements View.OnC
         setContentView(R.layout.activity_email_password);
 
         mAuth = FirebaseAuth.getInstance();
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        usersRef = firebaseDatabase.getReference("Users");
-
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if(user != null){
-                    Intent intent = new Intent(EmailPasswordActivity.this, MainActivity.class);
-                    startActivity(intent);
-                }else {
-
-                }
+                CheckUser();
             }
         };
-
-        CheckUser();
 
         etEmail = findViewById(R.id.et_email);
         etPassword = findViewById(R.id.et_password);
@@ -73,44 +57,50 @@ public class EmailPasswordActivity extends AppCompatActivity implements View.OnC
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btn_sign_in:
-                SignIn(etEmail.getText().toString(), etPassword.getText().toString());
+                SignIn(etEmail.getText().toString(),
+                        etPassword.getText().toString());
                 break;
             case R.id.btn_sign_up:
-                Intent intent = new Intent(EmailPasswordActivity.this, SignUpActivity.class);
+                Intent intent =
+                        new Intent(EmailPasswordActivity.this,
+                                SignUpActivity.class);
                 startActivity(intent);
-                //SignUp(etEmail.getText().toString(), etPassword.getText().toString());
                 break;
         }
     }
 
     public void SignIn(String email, String password){
         try {
-            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+            mAuth.signInWithEmailAndPassword(email, password).
+                    addOnCompleteListener(this,
+                            new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
-                        Intent intent = new Intent(EmailPasswordActivity.this, MainActivity.class);
+                        Intent intent =
+                                new Intent(EmailPasswordActivity.this,
+                                        CoursesActivity.class);
                         startActivity(intent);
-
-                        Toast.makeText(EmailPasswordActivity.this, "Авторизация прошла успешно", Toast.LENGTH_LONG).show();
+                        Toast.makeText(EmailPasswordActivity.this,
+                                "Авторизация прошла успешно", Toast.LENGTH_LONG).show();
                     } else {
-                        Toast.makeText(EmailPasswordActivity.this, "Ошибка авторизации", Toast.LENGTH_LONG).show();
+                        Toast.makeText(EmailPasswordActivity.this,
+                                "Ошибка авторизации", Toast.LENGTH_LONG).show();
                     }
                 }
             });
-        }catch (Exception ex){}
-
-
+        }catch (Exception ex){Toast.makeText(EmailPasswordActivity.this,
+                "Пожалуйта, заполните пустые поля", Toast.LENGTH_LONG).show();
+        }
     }
 
     public void CheckUser(){
         FirebaseUser user = mAuth.getCurrentUser();
         if(user != null) {
-            Intent intent = new Intent(EmailPasswordActivity.this, MainActivity.class);
+            Intent intent =
+                    new Intent(EmailPasswordActivity.this,
+                            CoursesActivity.class);
             startActivity(intent);
-        }else {
-            /*Intent intent = new Intent(EmailPasswordActivity.this, SignUpActivity.class);
-            startActivity(intent);*/
         }
     }
 }

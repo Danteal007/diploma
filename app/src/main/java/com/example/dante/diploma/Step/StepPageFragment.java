@@ -1,15 +1,11 @@
-package com.example.dante.diploma;
+package com.example.dante.diploma.Step;
 
-import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -22,34 +18,18 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.example.dante.diploma.Step.Quiz.QuizItem;
-import com.example.dante.diploma.Step.Step;
-import com.example.dante.diploma.UserInfo.CourseUserInfo;
+import com.example.dante.diploma.CommonUtils;
+import com.example.dante.diploma.R;
 import com.example.dante.diploma.UserInfo.DiplomaUserInfo;
-import com.example.dante.diploma.UserInfo.StepUserInfo;
-import com.example.dante.diploma.UserInfo.TopicUserInfo;
-import com.example.dante.diploma.ViewHolders.Article;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
-import org.mdkt.compiler.InMemoryJavaCompiler;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 
 public class StepPageFragment extends Fragment {
@@ -263,7 +243,7 @@ public class StepPageFragment extends Fragment {
                             String output;
 
                             try {
-                                output = new APITest().execute(etCodeBlank.getText().toString()).get();
+                                output = new CommonUtils.JDoodleAPI().execute(etCodeBlank.getText().toString()).get();
 
                                 if(output.contains(sampleOutput)){
                                     CountCorrectAnswer(coursePos, topicPos, stepPos);
@@ -291,13 +271,6 @@ public class StepPageFragment extends Fragment {
     private void NotifyAnswerIsNotCorrect() {
         btn_checkAnswer.setText("Неверно! Попробовать снова.");
         btn_checkAnswer.setBackgroundColor(Color.RED);
-    }
-
-
-    public String ModifyScript(String script){
-        String result = script.replace(System.getProperty("line.separator"),"");
-        result = result.replace("\"","\\\"");
-        return result;
     }
 
     public void CountCorrectAnswer(int coursePos, int topicPos, final int stepPos){
@@ -344,63 +317,5 @@ public class StepPageFragment extends Fragment {
                 child("courseNumber").setValue(coursePos);
     }
 
-    @SuppressLint("StaticFieldLeak")
-    class APITest extends AsyncTask<String,Void,String> {
-        @Override
-        protected String doInBackground(String[] scripts) {
-            String clientId = "ba69bd4e93d1491f5a85f6c229799993"; //Replace with your client ID
-            String clientSecret = "5875ea69736ef71fd1b549ff03ad5dd7781e987368bc945d9c0f5816205d691b"; //Replace with your client Secret
-            String script = scripts[0];
-            String language = "csharp";
-            String versionIndex = "1";
 
-            String res = "";
-            try {
-                URL url = new URL("https://api.jdoodle.com/v1/execute");
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.setDoOutput(true);
-                connection.setRequestMethod("POST");
-                connection.setRequestProperty("Content-Type", "application/json");
-
-                String input = "{\"clientId\": \"" + clientId + "\",\"clientSecret\":\"" + clientSecret + "\",\"script\":\"" + ModifyScript(script) +
-                        "\",\"language\":\"" + language + "\",\"versionIndex\":\"" + versionIndex + "\"} ";
-
-                System.out.println(input);
-
-                OutputStream outputStream = connection.getOutputStream();
-                outputStream.write(input.getBytes());
-                outputStream.flush();
-
-                if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                    throw new RuntimeException("Please check your inputs : HTTP error code : "+ connection.getResponseCode());
-                }
-
-                BufferedReader bufferedReader;
-                bufferedReader = new BufferedReader(new InputStreamReader(
-                        (connection.getInputStream())));
-
-                String output;
-
-                System.out.println("Output from JDoodle .... \n");
-                while ((output = bufferedReader.readLine()) != null) {
-                    System.out.println(output);
-                    res = res+output;
-                }
-
-                connection.disconnect();
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            return res;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-    }
 }

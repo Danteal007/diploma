@@ -1,4 +1,4 @@
-package com.example.dante.diploma.Adapters;
+package com.example.dante.diploma.Topic;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.example.dante.diploma.Activities.StepsActivity;
 import com.example.dante.diploma.R;
-import com.example.dante.diploma.Topic;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package com.example.dante.diploma.Adapters;
+package com.example.dante.diploma.Step;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.dante.diploma.Course;
 import com.example.dante.diploma.R;
 import com.example.dante.diploma.UserInfo.StepUserInfo;
 

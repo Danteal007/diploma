@@ -1,4 +1,4 @@
-package com.example.dante.diploma.ViewHolders;
+package com.example.dante.diploma.Step;
 
 import java.io.Serializable;
 
