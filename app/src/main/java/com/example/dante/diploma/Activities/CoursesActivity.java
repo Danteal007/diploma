@@ -59,6 +59,8 @@ public class CoursesActivity extends AppCompatActivity
                         new GenericTypeIndicator<ArrayList<Course>>() {};
                 courses = dataSnapshot.getValue(t);
                 courseAdapter.setCourses(courses);
+
+                int x = 0;
             }
 
             @Override
