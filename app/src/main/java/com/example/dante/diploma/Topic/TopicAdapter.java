@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.dante.diploma.Activities.StepsActivity;
 import com.example.dante.diploma.R;
@@ -57,8 +58,13 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                stepsActivityIntent.putExtra("Topic", topicArrayList.get(position));
-                context.startActivity(stepsActivityIntent);
+                if (topicArrayList.get(position).getSteps() != null) {
+                    stepsActivityIntent.putExtra("Topic", topicArrayList.get(position));
+                    context.startActivity(stepsActivityIntent);
+                }else {
+                    Toast.makeText(context, "Раздел в разработке",Toast.LENGTH_LONG).show();
+                }
+
             }
         });
     }

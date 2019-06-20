@@ -147,10 +147,13 @@ public class StepPageFragment extends Fragment {
                         new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                                 ViewGroup.LayoutParams.WRAP_CONTENT));
                 int style = article.textStyle;
+                tvStepPage.setPadding(20,20,20,20);
                 switch (style){
-                    case 0-3:
-                        tvStepPage.setPadding(20,20,20,20);
-                        tvStepPage.setTypeface(Typeface.defaultFromStyle(style));
+                    case 0:
+                        tvStepPage.setTypeface(Typeface.DEFAULT);
+                        break;
+                    case 1:
+                        tvStepPage.setTypeface(Typeface.DEFAULT_BOLD);
                         break;
                     case 4:
                         tvStepPage.setTypeface(Typeface.MONOSPACE);
