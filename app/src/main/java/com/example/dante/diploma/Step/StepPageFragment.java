@@ -165,13 +165,6 @@ public class StepPageFragment extends Fragment {
                 }
                 linearLayout.addView(tvStepPage);
             }
-            btn_checkAnswer.setText("Следующий шаг");
-            btn_checkAnswer.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    CountCorrectAnswer(coursePos,topicPos,stepPos);
-                }
-            });
 
         }
         switch (stepType){
@@ -230,6 +223,7 @@ public class StepPageFragment extends Fragment {
                         }
                     });
                 }
+                linearLayout.addView(btn_checkAnswer);
                 break;
             case Code:
                 if(codeBlank!= null){
@@ -263,10 +257,11 @@ public class StepPageFragment extends Fragment {
                     });
 
                 }
+                linearLayout.addView(btn_checkAnswer);
                 break;
         }
 
-        linearLayout.addView(btn_checkAnswer);
+
 
         return view;
     }
