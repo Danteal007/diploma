@@ -4,14 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_margin="@dimen/base_margin"
+    android:background="#FF7ACC52"
     android:orientation="vertical"
     tools:context=".Activities.SignUpActivity">
 
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/base_margin"
         android:text="@string/sign_up_a_new_user" />
 
     <LinearLayout
@@ -20,16 +24,11 @@
         android:layout_weight="1"
         android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/email_sign_up" />
-
         <EditText
             android:id="@+id/et_email_sign_up"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
+            android:hint="@string/email_sign_up"
             android:inputType="textEmailAddress" />
 
     </LinearLayout>
@@ -40,16 +39,11 @@
         android:layout_weight="1"
         android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/password" />
-
         <EditText
             android:id="@+id/et_password_sign_up"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
+            android:hint="@string/password"
             android:inputType="textPassword" />
     </LinearLayout>
 
@@ -59,16 +53,11 @@
         android:layout_weight="1"
         android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/confirm_password" />
-
         <EditText
             android:id="@+id/et_confirm_password_sign_up"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
+            android:hint="@string/confirm_password"
             android:inputType="textPassword" />
     </LinearLayout>
 
@@ -84,16 +73,11 @@
         android:layout_weight="1"
         android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/name" />
-
         <EditText
             android:id="@+id/et_user_name"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
+            android:hint="@string/name"
             android:inputType="textPersonName" />
     </LinearLayout>
 
@@ -103,23 +87,25 @@
         android:layout_weight="1"
         android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/last_name" />
-
         <EditText
             android:id="@+id/et_user_last_name"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
+            android:hint="@string/last_name"
             android:inputType="textPersonName" />
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btn_confirm_sign_up"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="@string/finish_sign_up" />
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/base_margin"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btn_confirm_sign_up"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/finish_sign_up" />
+    </LinearLayout>
 </LinearLayout>

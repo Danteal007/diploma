@@ -1,8 +1,8 @@
 package com.example.dante.diploma.Activities;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -11,21 +11,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.dante.diploma.FirebaseUtils;
 import com.example.dante.diploma.R;
 import com.example.dante.diploma.UserInfo.DiplomaUserInfo;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUpActivity
         extends AppCompatActivity
         implements View.OnClickListener {
-
-    private FirebaseAuth mAuth;
-    private FirebaseUser user;
 
     private EditText etEmail, etPassword, etConfirmPassword,
             etName, etLastName;
@@ -38,8 +33,6 @@ public class SignUpActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-
-        mAuth = FirebaseAuth.getInstance();
 
         etEmail = findViewById(R.id.et_email_sign_up);
         etPassword = findViewById(R.id.et_password_sign_up);
@@ -85,7 +78,7 @@ public class SignUpActivity
     }
 
     public void SignUp(String email, String password){
-        mAuth.createUserWithEmailAndPassword(email,password).
+        FirebaseUtils.getInstance().getAuth().createUserWithEmailAndPassword(email,password).
                 addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -93,10 +86,8 @@ public class SignUpActivity
                     DiplomaUserInfo diplomaUserInfo =
                             new DiplomaUserInfo(etName.getText().toString(),
                                     etLastName.getText().toString());
-                    user = mAuth.getCurrentUser();
 
-                    FirebaseDatabase.getInstance().getReference("Users").
-                            child(user.getUid()).
+                    FirebaseUtils.getInstance().getCurrentUserRef().
                             setValue(diplomaUserInfo);
 
                     Toast.makeText(SignUpActivity.this,

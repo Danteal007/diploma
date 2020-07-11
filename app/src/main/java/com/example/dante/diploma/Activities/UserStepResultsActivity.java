@@ -10,19 +10,16 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
+import com.example.dante.diploma.FirebaseUtils;
 import com.example.dante.diploma.R;
 import com.example.dante.diploma.Topic.TopicResultPageFragment;
 import com.example.dante.diploma.UserInfo.CourseUserInfo;
 import com.example.dante.diploma.UserInfo.DiplomaUserInfo;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class UserStepResultsActivity extends AppCompatActivity {
-    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     DiplomaUserInfo diplomaUserInfo;
 
@@ -37,12 +34,12 @@ public class UserStepResultsActivity extends AppCompatActivity {
 
         final Intent intent = getIntent();
 
-        firebaseDatabase.getReference().addValueEventListener(
+        FirebaseUtils.getInstance().getDatabaseRef().addValueEventListener(
                 new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 diplomaUserInfo = dataSnapshot.child("Users").
-                        child(mAuth.getCurrentUser().getUid()).
+                        child(FirebaseUtils.getInstance().getCurrentUserID()).
                         getValue(DiplomaUserInfo.class);
                 courseUserInfo = diplomaUserInfo.getCourseUserInfos().
                         get(intent.getIntExtra("CoursePos",0));

@@ -21,13 +21,10 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example.dante.diploma.CommonUtils;
+import com.example.dante.diploma.FirebaseUtils;
 import com.example.dante.diploma.R;
-import com.example.dante.diploma.UserInfo.DiplomaUserInfo;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -55,12 +52,6 @@ public class StepPageFragment extends Fragment {
     String sampleOutput;
     ArrayList<QuizItem> quizItems;
     StepType stepType;
-
-    FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-    DatabaseReference currentUserRef = firebaseDatabase.getReference("Users").child(mAuth.getCurrentUser().getUid());
-
-    DiplomaUserInfo diplomaUserInfo;
 
     LinearLayout linearLayout;
     Button btn_checkAnswer;
@@ -123,11 +114,10 @@ public class StepPageFragment extends Fragment {
 
         vp = (ViewPager)container;
 
-        firebaseDatabase.
-                getReference("Users").addValueEventListener(new ValueEventListener() {
+        FirebaseUtils.getInstance().getUsersRef().addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                //diplomaUserInfo = dataSnapshot.child(mAuth.getCurrentUser().getUid()).getValue(DiplomaUserInfo.class);
+
             }
 
             @Override
@@ -214,8 +204,6 @@ public class StepPageFragment extends Fragment {
                             if(checkedRadioButtonNumber == finalCorrectAnswerIndex){
                                 //Сюда добавить логику зачета пользователю правильного ответа
                                 CountCorrectAnswer(coursePos,topicPos,stepPos);
-
-
                             }
                             else {
                                 NotifyAnswerIsNotCorrect();
@@ -292,26 +280,17 @@ public class StepPageFragment extends Fragment {
             ex.printStackTrace();
         }
 
-        currentUserRef.
-                child("courseUserInfos").child(Integer.toString(coursePos)).
-                child("topicUserInfos").child(Integer.toString(topicPos)).
-                child("stepUserInfos").child(Integer.toString(stepPos)).
+        FirebaseUtils.getInstance().getStepUserInfos(coursePos, topicPos, stepPos).
                 child("correct").setValue(true);
 
-        currentUserRef.
-                child("courseUserInfos").child(Integer.toString(coursePos)).
-                child("topicUserInfos").child(Integer.toString(topicPos)).
-                child("stepUserInfos").child(Integer.toString(stepPos)).
+        FirebaseUtils.getInstance().getStepUserInfos(coursePos, topicPos, stepPos).
                 child("stepNumber").setValue(stepPos);
 
-        currentUserRef.
-                child("courseUserInfos").child(Integer.toString(coursePos)).
-                child("topicUserInfos").child(Integer.toString(topicPos)).
+        FirebaseUtils.getInstance().getTopicUserInfos(coursePos, topicPos).
                 child("topicNumber").setValue(topicPos);
         Log.d("", "onClick " + topicPos);
 
-        currentUserRef.
-                child("courseUserInfos").child(Integer.toString(coursePos)).
+        FirebaseUtils.getInstance().getCourseUserInfos(coursePos).
                 child("courseNumber").setValue(coursePos);
     }
 

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.dante.diploma.Activities.UserStepResultsActivity;
+import com.example.dante.diploma.FirebaseUtils;
 import com.example.dante.diploma.R;
 import com.example.dante.diploma.Activities.TopicsActivity;
 import com.example.dante.diploma.UserInfo.CourseUserInfo;
@@ -20,8 +21,6 @@ import com.example.dante.diploma.UserInfo.DiplomaUserInfo;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -39,7 +38,6 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
     private CourseUserInfo courseUserInfo;
 
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
-    private DatabaseReference currentUserReference = FirebaseDatabase.getInstance().getReference(mAuth.getCurrentUser().getUid());
 
     public CourseAdapter(Context context){
         this.context = context;
@@ -93,7 +91,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
             @Override
             public void onClick(View view) {
                 try{
-                    FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addValueEventListener(new ValueEventListener() {
+                    FirebaseUtils.getInstance().getCurrentUserRef().addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             DiplomaUserInfo diplomaUserInfo = dataSnapshot.getValue(DiplomaUserInfo.class);
