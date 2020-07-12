@@ -3,6 +3,7 @@ package com.example.dante.diploma.Course;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,7 +16,7 @@ import android.widget.Toast;
 import com.example.dante.diploma.Activities.UserStepResultsActivity;
 import com.example.dante.diploma.FirebaseUtils;
 import com.example.dante.diploma.R;
-import com.example.dante.diploma.Activities.TopicsActivity;
+import com.example.dante.diploma.Topic.TopicAdapter;
 import com.example.dante.diploma.UserInfo.CourseUserInfo;
 import com.example.dante.diploma.UserInfo.DiplomaUserInfo;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,19 +33,14 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
     private ArrayList<Course> courses;
 
     private Context context;
-    private Intent topicActivityIntent;
 
     private int coursePosition;
     private CourseUserInfo courseUserInfo;
-
-    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     public CourseAdapter(Context context){
         this.context = context;
         Log.d(TAG, "CourseAdapter: Adapter Created");
         courses = new ArrayList<>();
-
-        topicActivityIntent = new Intent(context, TopicsActivity.class);
     }
 
     public void setCourses(ArrayList<Course> courses){
@@ -76,16 +72,6 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
     public void onBindViewHolder(final CourseViewHolder holder, int position) {
 
         holder.bind(courses.get(position));
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                topicActivityIntent.putExtra("Course", courses.get(holder.getAdapterPosition()));
-                context.startActivity(topicActivityIntent);
-            }
-        });
-
-
 
         holder.btnShowCourseResults.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,6 +114,9 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
 
         private TextView tvCourseName;
         private Button btnShowCourseResults;
+        private RecyclerView rvTopics;
+
+        private TopicAdapter topicAdapter;
 
         public CourseViewHolder(View itemView) {
             super(itemView);
@@ -137,11 +126,25 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
             tvCourseName = itemView.findViewById(R.id.tv_course_name);
             btnShowCourseResults = itemView.findViewById(R.id.btn_show_course_results);
 
+            InitRecyclerView(itemView);
+
+
         }
 
         public void bind(Course course){
             tvCourseName.setText(course.getName());
             //tvCourseName.setVisibility(View.VISIBLE);
+            topicAdapter.setTopics(course.getTopics());
+        }
+
+        private void InitRecyclerView(View itemView){
+            rvTopics = itemView.findViewById(R.id.rv_topics);
+            LinearLayoutManager linearLayoutManager =
+                    new LinearLayoutManager(itemView.getContext());
+            linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+            rvTopics.setLayoutManager(linearLayoutManager);
+            topicAdapter = new TopicAdapter(itemView.getContext());
+            rvTopics.setAdapter(topicAdapter);
 
         }
 

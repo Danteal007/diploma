@@ -35,9 +35,6 @@
             android:name=".Activities.StepsActivity"
             android:label="Шаги"/>
         <activity
-            android:name=".Activities.TopicsActivity"
-            android:label="Темы курса"/>
-        <activity
             android:name=".Activities.CoursesActivity"
             android:label="Доступные курсы"/>
     </application>

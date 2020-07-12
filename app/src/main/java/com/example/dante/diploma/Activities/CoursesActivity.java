@@ -26,8 +26,6 @@ public class CoursesActivity extends AppCompatActivity
 
     private final String TAG = "Main Activity";
 
-    private FirebaseAuth mAuth;
-
     private ArrayList<Course> courses;
 
     private RecyclerView rvCourses;
@@ -35,10 +33,14 @@ public class CoursesActivity extends AppCompatActivity
 
     private Button btnSettings, btnSignOut;
 
+    private FirebaseUtils FBUtils;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_courses);
+
+        FBUtils = FirebaseUtils.getInstance();
 
         btnSettings = findViewById(R.id.btn_settings);
         btnSignOut = findViewById(R.id.btn_log_out);
@@ -46,11 +48,9 @@ public class CoursesActivity extends AppCompatActivity
         btnSettings.setOnClickListener(this);
         btnSignOut.setOnClickListener(this);
 
-        mAuth = FirebaseAuth.getInstance();
-
         courses = new ArrayList<>();
 
-        FirebaseUtils.getInstance().getCoursesRef().
+        FBUtils.getCoursesRef().
                 addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -93,7 +93,7 @@ public class CoursesActivity extends AppCompatActivity
                 startActivity(intent);
                 break;
             case R.id.btn_log_out:
-                mAuth.signOut();
+                FBUtils.getAuth().signOut();
                 Intent intentSignIn =
                         new Intent(CoursesActivity.this,
                                 EmailPasswordActivity.class);

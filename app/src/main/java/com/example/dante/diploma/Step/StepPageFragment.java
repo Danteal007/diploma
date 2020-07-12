@@ -141,9 +141,11 @@ public class StepPageFragment extends Fragment {
                 switch (style){
                     case 0:
                         tvStepPage.setTypeface(Typeface.DEFAULT);
+                        tvStepPage.setBackgroundColor(Color.WHITE);
                         break;
                     case 1:
                         tvStepPage.setTypeface(Typeface.DEFAULT_BOLD);
+                        tvStepPage.setBackgroundColor(Color.WHITE);
                         break;
                     case 4:
                         tvStepPage.setTypeface(Typeface.MONOSPACE);
@@ -151,6 +153,7 @@ public class StepPageFragment extends Fragment {
                         break;
                     case 5:
                         tvStepPage.setTypeface(Typeface.SANS_SERIF);
+                        tvStepPage.setBackgroundColor(Color.WHITE);
                         break;
                 }
                 linearLayout.addView(tvStepPage);
@@ -217,7 +220,9 @@ public class StepPageFragment extends Fragment {
                 if(codeBlank!= null){
                     final EditText etCodeBlank = new EditText(this.getContext());
                     etCodeBlank.setText(codeBlank);
+                    etCodeBlank.setTextColor(Color.WHITE);
                     etCodeBlank.setTypeface(Typeface.MONOSPACE);
+                    etCodeBlank.setBackgroundColor(Color.DKGRAY);
                     linearLayout.addView(etCodeBlank);
 
                     btn_checkAnswer.setText("Проверить");

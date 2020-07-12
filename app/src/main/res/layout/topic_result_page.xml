@@ -10,8 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/topic_number"
-        android:textAlignment="center"
-        android:background="@color/colorPrimary"
+        android:layout_gravity="center"
+        android:background="@color/colorPrimaryDark"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"/>
 

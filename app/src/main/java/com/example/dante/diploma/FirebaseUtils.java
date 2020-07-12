@@ -1,10 +1,14 @@
 package com.example.dante.diploma;
 
 
+import com.example.dante.diploma.EducationPlaces.EducationPlaces;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
 
 public class FirebaseUtils {
     private FirebaseDatabase mDatabase;
@@ -40,6 +44,10 @@ public class FirebaseUtils {
 
     public DatabaseReference getUsersRef(){
         return mDatabase.getReference("Users");
+    }
+
+    public DatabaseReference getEducationPlacesRef(){
+        return mDatabase.getReference("EducationPlaces");
     }
 
     public DatabaseReference getCoursesRef(){

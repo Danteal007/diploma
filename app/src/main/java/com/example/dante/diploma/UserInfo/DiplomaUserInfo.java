@@ -1,11 +1,17 @@
 package com.example.dante.diploma.UserInfo;
 
+import com.example.dante.diploma.EducationPlaceInfo.EducationPlaceInfo;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class DiplomaUserInfo implements Serializable {
     private String name;
     private String lastName;
+    private int userType;
+    private int educationPlace;
+    private EducationPlaceInfo educationPlaceInfo;
+
     private ArrayList<CourseUserInfo> courseUserInfos;
 
     public DiplomaUserInfo(){
@@ -41,5 +47,29 @@ public class DiplomaUserInfo implements Serializable {
 
     public void setCourseUserInfos(ArrayList<CourseUserInfo> courseUserInfos) {
         this.courseUserInfos = courseUserInfos;
+    }
+
+    public int getUserType() {
+        return userType;
+    }
+
+    public void setUserType(int userType) {
+        this.userType = userType;
+    }
+
+    public int getEducationPlace() {
+        return educationPlace;
+    }
+
+    public void setEducationPlace(int educationPlace) {
+        this.educationPlace = educationPlace;
+    }
+
+    public EducationPlaceInfo getEducationPlaceInfo() {
+        return educationPlaceInfo;
+    }
+
+    public void setEducationPlaceInfo(EducationPlaceInfo educationPlaceInfo) {
+        this.educationPlaceInfo = educationPlaceInfo;
     }
 }

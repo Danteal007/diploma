@@ -18,6 +18,17 @@
         android:text="@string/course_name"
         android:textSize="20sp" />
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/csharp_course_icon" />
+    <android.support.v7.widget.RecyclerView
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:id="@+id/rv_topics">
+    </android.support.v7.widget.RecyclerView>
+
     <Button
         android:id="@+id/btn_show_course_results"
         android:layout_width="wrap_content"
