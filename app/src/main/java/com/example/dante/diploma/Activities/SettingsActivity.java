@@ -1,8 +1,12 @@
 package com.example.dante.diploma.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.example.dante.diploma.EducationPlaceInfo.EducationPlaceInfo;
@@ -59,5 +63,26 @@ public class SettingsActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError){
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_courses, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.menu_item_sign_out:
+                FBUtils.getAuth().signOut();
+                Intent intentSignIn =
+                        new Intent(this,
+                                EmailPasswordActivity.class);
+                startActivity(intentSignIn);
+                break;
+        }
+        return true;
     }
 }

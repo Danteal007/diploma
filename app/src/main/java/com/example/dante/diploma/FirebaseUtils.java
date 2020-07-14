@@ -1,7 +1,4 @@
 package com.example.dante.diploma;
-
-
-import com.example.dante.diploma.EducationPlaces.EducationPlaces;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
