@@ -12,6 +12,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.dante.diploma.Course.Course;
 import com.example.dante.diploma.Course.CourseAdapter;
@@ -30,6 +31,7 @@ public class CoursesActivity extends AppCompatActivity {
 
     private ArrayList<Course> courses;
 
+    private TextView tvLoading;
     private RecyclerView rvCourses;
     private CourseAdapter courseAdapter;
 
@@ -45,6 +47,7 @@ public class CoursesActivity extends AppCompatActivity {
         FBUtils = FirebaseUtils.getInstance();
 
         toolbar = findViewById(R.id.toolbar);
+        tvLoading = findViewById(R.id.tv_loading);
 
         setSupportActionBar(toolbar);
         courses = new ArrayList<>();
@@ -58,6 +61,15 @@ public class CoursesActivity extends AppCompatActivity {
                         new GenericTypeIndicator<ArrayList<Course>>() {};
                 courses = dataSnapshot.getValue(t);
                 courseAdapter.setCourses(courses);
+                if(courses.size()>0) {
+                    tvLoading.setVisibility(View.GONE);
+                    rvCourses.setVisibility(View.VISIBLE);
+                }
+                else {
+                    tvLoading.setVisibility(View.VISIBLE);
+                    rvCourses.setVisibility(View.GONE);
+                }
+
             }
 
             @Override

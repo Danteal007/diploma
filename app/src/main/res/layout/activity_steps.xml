@@ -8,13 +8,23 @@
     android:orientation="vertical"
     tools:context=".Activities.StepsActivity">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/ll_steps_buttons">
+        style="@style/Toolbar">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/ll_steps_buttons">
 
-    </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </android.support.v7.widget.Toolbar>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_steps"

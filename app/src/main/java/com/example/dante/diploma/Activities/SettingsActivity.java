@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -24,6 +25,7 @@ public class SettingsActivity extends AppCompatActivity {
     private TextView tvUserLastName;
     private TextView tvUserEmail;
     private TextView tvUserEducationPlace;
+    private Toolbar toolbar;
 
     private DiplomaUserInfo diplomaUserInfo;
 
@@ -37,6 +39,9 @@ public class SettingsActivity extends AppCompatActivity {
         tvUserLastName          = findViewById(R.id.tv_user_last_name);
         tvUserEmail             = findViewById(R.id.tv_user_email);
         tvUserEducationPlace    = findViewById(R.id.tv_user_education_place);
+        toolbar                 = findViewById(R.id.toolbar_profile);
+
+        setSupportActionBar(toolbar);
 
         FBUtils.getUsersRef().addValueEventListener(new ValueEventListener() {
             @Override
@@ -68,7 +73,7 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_courses, menu);
+        inflater.inflate(R.menu.menu_profile, menu);
         return true;
     }
 

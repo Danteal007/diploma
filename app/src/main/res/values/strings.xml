@@ -34,4 +34,5 @@
     <string name="step_number">Номер шага</string>
     <string name="result">Результат</string>
     <string name="education_place">Место обучения</string>
+    <string name="loading___">Загрузка...</string>
 </resources>

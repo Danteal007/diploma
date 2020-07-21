@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
-    android:background="@color/colorPrimary"
+    android:background="@drawable/course_viewholder_background"
     android:orientation="vertical"
     android:padding="16dp">
 
@@ -31,8 +31,7 @@
 
     <Button
         android:id="@+id/btn_show_course_results"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/diplomaButton"
         android:layout_gravity="right"
         android:text="@string/show_results" />
 
