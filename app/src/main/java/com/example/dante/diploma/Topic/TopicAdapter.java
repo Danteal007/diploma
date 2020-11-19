@@ -45,7 +45,7 @@ public class TopicAdapter extends RecyclerView.Adapter<TopicAdapter.TopicViewHol
     @Override
     public TopicViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.topic_view_holder, parent, false);
+                .inflate(R.layout.viewholder_topic, parent, false);
 
         return new TopicViewHolder(view);
 

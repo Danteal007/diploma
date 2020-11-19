@@ -27,7 +27,7 @@ import java.util.ArrayList;
 
 public class CoursesActivity extends AppCompatActivity {
 
-    private final String TAG = "Main Activity";
+    private final String TAG = "Courses Activity";
 
     private ArrayList<Course> courses;
 

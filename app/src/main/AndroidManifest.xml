@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Activities.UserStepResultsActivity"
+            android:name=".Activities.UserTopicsResultsActivity"
             android:label="Итоги курса" />
         <activity
             android:name=".Activities.SignUpActivity"

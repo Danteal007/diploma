@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.dante.diploma.Activities.UserStepResultsActivity;
+import com.example.dante.diploma.Activities.UserTopicsResultsActivity;
 import com.example.dante.diploma.FirebaseUtils;
 import com.example.dante.diploma.R;
 import com.example.dante.diploma.Topic.TopicAdapter;
@@ -94,7 +94,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
                     Toast.makeText(holder.itemView.getContext(),"Нет информации о результатах", Toast.LENGTH_LONG).show();
                 }
 
-                Intent intent = new Intent(view.getContext(), UserStepResultsActivity.class);
+                Intent intent = new Intent(view.getContext(), UserTopicsResultsActivity.class);
                 intent.putExtra("CourseUserInfo",courseUserInfo);
                 view.getContext().startActivity(intent);
             }
